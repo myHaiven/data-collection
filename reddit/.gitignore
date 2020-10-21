@@ -1,0 +1,7 @@
+# Git ignore for reddit video scraper
+
+# Ignore the data folder
+/data
+
+# Ignore the python notebook checkpoints
+.ipynb_checkpoints
