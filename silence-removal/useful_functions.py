@@ -6,7 +6,7 @@ from pathlib import Path
 import logging
 
 
-# Function that generates log files
+# Function that sets up the logging system
 def set_up_logging(log_path = "logging/", log_level = logging.WARNING):
     """
     Sets the logging configuration and writes log files to the specified path.
