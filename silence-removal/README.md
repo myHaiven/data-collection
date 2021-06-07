@@ -44,7 +44,7 @@ For stereo audio, the data is formatted as an array of arrays, with the inner ar
 </details>
 
 <details><summary>Logging levels</summary>
-Logging levels can be adjusted in these lines of code:
+Logging levels can be adjusted in these lines of code for `vad.py`, `useful_functions.py`, and `.convert_to_wav.py`:
 ```
 set_up_logging(log_path = "logging/vad2/",
                log_level = logging.INFO)
