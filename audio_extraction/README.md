@@ -12,8 +12,10 @@ Python script that extracts audio from video files.
 ## Prerequisites
 The system must have [ffmpeg](https://ffmpeg.org/download.html) installed. On MacOS, this can be installed with [brew](https://formulae.brew.sh/formula/ffmpeg) via `brew install ffmpeg`.
 
+The video files should be in a folder named "data". The "data" folder should be in the same directory that contains `audio_extraction.py`.
+
 ### Directories
-`audio_extraction.py` reads video files from the "data" folder. The "data" folder must be in the same directory as `audio_extraction.py` itself. `audio_extraction.py` will generate a logging folder in its directory and generates the extracted audio to the "extracted audio" folder.
+By default, `audio_extraction.py` reads video files from the "data" folder. This can be changed by changing the `video_path` argument in the `extract_audio_from_video` call. `audio_extraction.py` will generate a logging folder in its directory and generates the extracted audio to the "extracted audio" folder.
 
 ## Usage
 Extract audio from the "data" folder:
