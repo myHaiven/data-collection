@@ -28,8 +28,8 @@ def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
     
     log_level | int
     A integer representing the logging level. See
-    https://docs.python.org/3/howto/logging.html for descriptions of the
-    various levels
+    https://docs.python.org/3/howto/logging.html#when-to-use-logging for 
+    descriptions of the various levels
     
     Returns:
     It returns a string that tells you how many audio files were extracted.
