@@ -7,7 +7,6 @@ Python script that cuts out silent audio sounds. [Original `vad.py`](https://git
   - [Prerequisites](#prerequisites)
     - [Directories](#directories)
   - [Usage](#usage)
-    - [Test](#test)
   - [Details](#details)
   - [References:](#references)
 
@@ -20,15 +19,11 @@ The system must have [ffmpeg](https://ffmpeg.org/download.html) installed. On Ma
 `vad.py` will generate a logging folder in its directory and generates the output to its directory as well. `useful_functions.py` and `convert_to_wav.py` should be in the same directory as `vad.py`.
 
 ## Usage
-Compress audio file by removing silence:
-`python vad.py path/to/input_name.wav output_name`
-
-### Test
-You can use these commands to test the audio files:
+Examples of using the silence removal script `vad.py`:
 ```{python}
-python vad.py "./data/0no4f8nb0d351.aac" "0no4f8nb0d351_(processed)"
-python vad.py "./data/clip_(stereo).mp3" "clip_(stereo)_(processed)"
-python vad.py "./data/taps_(mono).wav" "taps_(mono)_(processed)"
+python vad.py './data/0no4f8nb0d351.aac' '0no4f8nb0d351_(processed)'
+python vad.py './data/clip_(stereo).mp3' 'clip_(stereo)_(processed)'
+python vad.py './data/taps_(mono).wav' 'taps_(mono)_(processed)'
 ```
 
 ## Details
@@ -49,7 +44,6 @@ Logging levels can be adjusted in these lines of code for `vad.py`, `useful_func
 set_up_logging(log_path = "logging/vad2/",
                log_level = logging.INFO)
 ```
-
 </details>
 
 <details><summary>Modification to the algorithm for stereo audio</summary>
