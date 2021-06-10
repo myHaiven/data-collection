@@ -25,7 +25,7 @@ def set_up_logging(log_path = "logging/", log_level = logging.WARNING):
     set_up_logging(log_path = "logging/", log_level = logging.DEBUG)
     """
     # Make the chosen directory if it doesn't already exist
-    Path(log_path).mkdir(exist_ok = True)
+    Path(Path().absolute() / log_path).mkdir(parents = True, exist_ok = True)
     # Use the current time to create the log file name
     current_time = datetime.now().strftime("%Y-%m-%d_%HH%MM")
     log_filename = current_time + ".log"
