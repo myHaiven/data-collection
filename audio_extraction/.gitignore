@@ -1,0 +1,8 @@
+# Ignore log files
+*.log
+
+# Ignore the extracted_audio output folder
+extracted_audio
+
+# Ignore the .mp3 files in the data folder
+data/*.mp3
