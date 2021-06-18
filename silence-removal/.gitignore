@@ -1,0 +1,10 @@
+# Python files to ignore
+__pycache__/
+.ipynb_checkpoints
+
+# Ignore logging folder children
+./logging/vad2
+./logging/convert_to_wav
+
+# Ignore processed .wav files in the root folder (silence-removal)
+/*.wav
