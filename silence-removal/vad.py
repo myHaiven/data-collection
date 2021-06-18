@@ -62,10 +62,6 @@ class VoiceActivityDetection:
         self.__VADthd = ((self.__VADn * self.__VADthd + thd) /
                          float(self.__VADn + 1.))
         self.__VADn += 1.
-        
-        if self.__VADn <= 0:
-            logging.debug(f"frame: {frame}")
-            logging.debug(f"max_frame: {max_frame}")
 
         # Take the mean of the maximum amplitudes across any channel
         if np.mean(max_frame) <= self.__VADthd:
