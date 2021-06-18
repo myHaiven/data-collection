@@ -168,4 +168,3 @@ voice_samples = vad.get_voice_samples()
 output_name = sys.argv[2]
 # Write the processed audio into a new `.wav` file
 wf.write(f"{output_name}.wav", sample_rate, voice_samples)
-
