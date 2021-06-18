@@ -38,6 +38,23 @@ For stereo audio, the data is formatted as an array of arrays, with the inner ar
 ```
 </details>
 
+<details><summary>Log file contents</summary>
+At the info level, the log file for `vad.py` shows the system arguments, audio file's filename and extension, the new audio filename, a preview of the amplitude data, and a confirmation of whether or not the audio is mono or stereo.  
+
+At the debug level, it shows the first frame of amplitude measurements.
+
+The `convert_to_wav` log file shows the before and after filenames.
+</details>
+
+<details><summary>Log file location</summary>
+`vad.py` log files are located at `/silence-removal/logging/vad`. 
+</details>
+
+<details><summary>Log file naming and overwriting</summary>
+The log file filenames are based on the current time and are unique to the minute. If a log is created and a file with the same name already exists, the new log will just be appended to the existing file.  
+</details>
+
+
 <details><summary>Logging levels</summary>
 Logging levels can be adjusted in these lines of code for `vad.py`, `useful_functions.py`, and `.convert_to_wav.py`:
 ```
