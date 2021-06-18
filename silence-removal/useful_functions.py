@@ -33,4 +33,3 @@ def set_up_logging(log_path = "logging/", log_level = logging.WARNING):
     logging.basicConfig(filename = Path(log_path, log_filename),
                         level = log_level,
                         filemode = "a") # Can append to existing file
-    
