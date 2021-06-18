@@ -23,7 +23,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Set up the logging
-set_up_logging(log_path = "logging/vad2/",
+set_up_logging(log_path = "logging/vad/",
                log_level = logging.INFO)
 
 logging.info(f"System arguments: {sys.argv}")
