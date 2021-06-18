@@ -150,11 +150,13 @@ class VoiceActivityDetection:
 # Usage:
 # Convert the `.aac` audio file into `.wav`
 input_filename = sys.argv[1]
-audio_file_extension = re.search(pattern = "\.\w+$",
-                                 string = input_filename).group(0)
+audio_file_extension = Path(input_filename).suffix
 logging.info(f"Audio file extension: {audio_file_extension}")
 if audio_file_extension != ".wav":
-    newFilename = convert_to_wav(input_filename)
+    convert_to_wav(input_filename)
+    # replace extension with .wav
+    newFilename = re.sub(pattern = "\.mp3", repl = ".wav",
+                         string = input_filename)
 else:
     newFilename = input_filename
 wav = wf.read(newFilename)

@@ -32,8 +32,8 @@ def convert_to_wav(audio_filename):
     if audio_file_extension in audio_extensions:
         # Load the audio file
         sound = AudioSegment.from_file(audio_filename)
-        # Convert filename extension from `.aac` to `.wav`
-        new_filename = re.sub(pattern = f"\.{audio_file_extension}$",
+        # Convert filename extension from to `.wav`
+        new_filename = re.sub(pattern = f"{audio_file_extension}$",
                               repl = ".wav",
                               string = audio_filename)
         logging.info(f"New audio filename: {new_filename}")
