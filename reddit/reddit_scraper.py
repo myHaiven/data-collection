@@ -10,7 +10,7 @@ import logging
 
 # Currently, this isn't working; thinking about restructuing project so that
 # importing other python files isn't such a headache
-from .useful_functions import set_up_logging
+from useful_functions import set_up_logging
 
 # Make sure the praw.ini file is in the correct directory
 # Also, make sure there is a folder called "data" in the same directory that
@@ -244,8 +244,6 @@ def download_video(url, audio=False):
 
 def test_functions(download_quantity=2):
     # Connect to Reddit's API
-    print("hello")
-    print(Path.cwd())
     reddit = praw.Reddit("bot1", user_agent="bot1")
     # Check that the praw.ini file worked
     logging.info(reddit.user.me())
