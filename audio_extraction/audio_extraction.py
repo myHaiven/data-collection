@@ -6,9 +6,12 @@ import ffmpeg
 import logging
 import re
 
-def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
-                             video_extensions = [".mp4", ".mov"],
-                             log_level = logging.WARNING):
+
+def extract_audio_from_video(
+    video_path="data",
+    video_extensions=[".mp4", ".mov"],
+    log_level=logging.WARNING,
+):
     """
     Function that goes into the directory and extracts audio from all `.mp4`
     files and outputs it into a folder called 'extracted_audio'
@@ -34,7 +37,7 @@ def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
     Returns:
     It returns a string that tells you how many audio files were extracted.
     """
-    
+
     # Make the data folder if it doesn't already exist
     Path(video_path).mkdir(exist_ok = True)
     
@@ -45,11 +48,11 @@ def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
     
     # Create a counter for the number of audio files processed
     audio_file_counter = 0
-    
+
     # Go through all files in `video_path`
     for child in video_path.iterdir():
         # Debugging: show the file name
-        logging.debug(f'Detected file: {child.name}')
+        logging.debug(f"Detected file: {child.name}")
         # Store the extension of the file name
         file_extension = Path(child.name).suffix
         # If the file's extension is in `video_extensions`
@@ -58,30 +61,31 @@ def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
             current_probe = ffmpeg.probe(child)
             # If the number of streams is more than 1
             # (as a proxy for if the file could have audio)
-            if len(current_probe['streams']) > 1:
+            if len(current_probe["streams"]) > 1:
                 # Check if `codec_type` is audio
-                for stream in current_probe['streams']:
+                for stream in current_probe["streams"]:
                     # Debugging: print the codec type
                     logging.debug(f'Codec type: {stream["codec_type"]}')
                     # If the codec type is audio
-                    if stream['codec_type'] == 'audio':
+                    if stream["codec_type"] == "audio":
                         # Debugging: print the video file's path
-                        logging.debug(f'Audio codec detected: {child}')
+                        logging.debug(f"Audio codec detected: {child}")
                         # Store the video file path
                         new_child = str(child)
                         # Replace the extension with .mp3
                         new_child = re.sub(
-                            pattern = f'{file_extension}$',
-                            repl = '.mp3', string = new_child
-                            )
-                        
+                            pattern=f"{file_extension}$",
+                            repl=".mp3",
+                            string=new_child,
+                        )
+
                         # Information about the ffmpeg command:
                         ## ffmpeg -i input.mp4 -vn -q:a 0 -map a audio.mp3
                         ## '-i' is the input, '-vn' excludes video,
                         ## '-q:a' is the mp3 encoding,
                         ## '0' is the best quality mp3 encoding,
                         ## '-map a' only grabs audio
-                        
+
                         # Using ffmpeg to transform the video file into a .mp3 file
                         try:
                             error_message = ffmpeg.input(str(child)) \
@@ -94,23 +98,24 @@ def extract_audio_from_video(video_path = "data", to_folder = "extracted_audio",
                             # Create a variable to store the audio file's path
                             audio_file_path = Path(to_folder).joinpath(
                                 Path(new_child).name
-                                )
+                            )
                             # Debugging: print the audio file's path
                             logging.debug('Audio file extracted to: ' +
                                           f'{audio_file_path}')
                         # Print the error message if the try doesn't work
                         except ffmpeg.Error as error_message:
-                            print('ffmpeg stderr:', error_message.stderr())
+                            print("ffmpeg stderr:", error_message.stderr())
                             raise error_message
-                        
+
                         audio_file_counter += 1
     # Return a print message that states how many audio files were extracted
-    if (audio_file_counter == 1):
-        file_word = 'file'
+    if audio_file_counter == 1:
+        file_word = "file"
     else:
-        file_word = 'files'
+        file_word = "files"
     # Print how many audio files were extracted
-    return (str(audio_file_counter) + ' audio ' + file_word + ' extracted!')
+    return str(audio_file_counter) + " audio " + file_word + " extracted!"
+
 
 def test_audio_extraction():    
     # Testing function
