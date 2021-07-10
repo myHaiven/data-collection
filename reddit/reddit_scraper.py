@@ -159,7 +159,7 @@ def download_video(url, audio=False):
     
     Arguments:
     url | string | the link that you want to download from
-    audio | boolean | True will set the extension to .mp3, False will set the 
+    audio | boolean | True will set the extension to .aac, False will set the 
     extension to .mp4
     
     Returns:
@@ -178,7 +178,7 @@ def download_video(url, audio=False):
     if re.match(string=root_url, pattern="^v\.redd\.it"):
         source = "reddit"
         if audio == True:
-            file_suffix = "_raw.mp3"
+            file_suffix = "_raw.aac"
         else:
             file_suffix = ".mp4"
         # Use the second last part of the url within the slashes, it
