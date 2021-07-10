@@ -86,20 +86,25 @@ def extract_audio_from_video(
 
                         # Using ffmpeg to transform the video file into a .mp3 file
                         try:
-                            error_message = ffmpeg.input(str(child)) \
-                            .output(filename = str(audio_file_path),
-                                   **{'qscale:a': 0,
-                                      'map': 'a'}) \
-                            .overwrite_output() \
-                            .run()
-                            
                             # Create a variable to store the audio file's path
                             audio_file_path = Path(video_path).joinpath(
                                 Path(new_child).name
                             )
                             # Debugging: print the audio file's path
-                            logging.debug('Audio file extracted to: ' +
-                                          f'{audio_file_path}')
+                            logging.debug(
+                                "Audio file extracted to: "
+                                + f"{audio_file_path}"
+                            )
+
+                            error_message = (
+                                ffmpeg.input(str(child))
+                                .output(
+                                    filename=str(audio_file_path),
+                                    **{"qscale:a": 0, "map": "a"},
+                                )
+                                .overwrite_output()
+                                .run()
+                            )
                         # Print the error message if the try doesn't work
                         except ffmpeg.Error as error_message:
                             print("ffmpeg stderr:", error_message.stderr())
