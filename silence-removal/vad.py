@@ -139,27 +139,42 @@ class VoiceActivityDetection:
             raise Exception("Error, data is neither mono or stereo!")
 
 
-# Usage:
-# Convert the `.aac` audio file into `.wav`
-input_filename = sys.argv[1]
-audio_file_extension = Path(input_filename).suffix
-logging.info(f"Audio file extension: {audio_file_extension}")
-if audio_file_extension != ".wav":
-    convert_to_wav(input_filename)
-    # replace extension with .wav
-    newFilename = re.sub(pattern="\.mp3", repl=".wav", string=input_filename)
-else:
-    newFilename = input_filename
-wav = wf.read(newFilename)
-sample_rate = wav[0]
-audio_data = wav[1]
-logging.info(f"Audio data: {audio_data}")
+def remove_silences(date_folder):
+    for file_folder in date_folder.iterdir():
+        # Loop through raw files in the filename folders, excluding hidden
+        # files
+        for file in file_folder.glob("[!.]*_raw.???"):
+            print(f"Path: {Path(file)}")
+            input_filename = file
+            new_filename = input_filename
+            audio_file_extension = Path(input_filename).suffix
+            logging.info(f"Audio file extension: {audio_file_extension}")
+            if audio_file_extension != ".wav":
+                convert_to_wav(input_filename)
+                # replace filename extension with .wav
+                new_filename = re.sub(
+                    pattern="\.mp3", repl=".wav", string=input_filename.name
+                )
+            wav = wf.read(str(new_filename))
+            sample_rate = wav[0]
+            audio_data = wav[1]
+            logging.info(f"Audio data: {audio_data}")
 
-vad = VoiceActivityDetection()
-# Remove the silences
-vad.process(audio_data)
-# Get the processed audio
-voice_samples = vad.get_voice_samples()
-output_name = sys.argv[2]
-# Write the processed audio into a new `.wav` file
-wf.write(f"{output_name}.wav", sample_rate, voice_samples)
+            vad = VoiceActivityDetection()
+            # Remove the silences
+            vad.process(audio_data)
+            # Get the processed audio
+            voice_samples = vad.get_voice_samples()
+            output_name = re.sub(
+                pattern=f"_raw\..*",
+                repl="_processed.wav",
+                string=Path(new_filename).name,
+            )
+            output_path = Path(Path(file).parent, output_name)
+            # Write the processed audio into a new `.wav` file
+            wf.write(f"{output_path}", sample_rate, voice_samples)
+
+
+remove_silences(
+    date_folder=Path(Path.cwd().parent, "data", "reddit", "2021-07-08")
+)
