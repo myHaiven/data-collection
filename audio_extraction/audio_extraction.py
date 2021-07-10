@@ -9,7 +9,7 @@ import sys
 
 
 def extract_audio_from_video(
-    video_path="data",
+    date_folder_path,
     video_extensions=[".mp4", ".mov"],
     log_level=logging.WARNING,
 ):
@@ -18,13 +18,13 @@ def extract_audio_from_video(
     files and outputs it into a folder called 'extracted_audio'
     
     Arguments:
-    video_path | pathlib.PosixPath
+    date_folder_path | pathlib.PosixPath
     Path to the directory that contains all of the video files.
     
     Optional Arguments:
     to_folder | pathlib.PosixPath
     Path to the directory where you want to store the extracted audio. By default,
-    it will be extracted into a folder in video_path's parent directory as 'extracted_audio'
+    it will be extracted into a folder in date_folder_path's parent directory as 'extracted_audio'
     
     video_extensions | list
     A list of strings that contains the extensions you want ffmpeg to extract
@@ -39,16 +39,16 @@ def extract_audio_from_video(
     It returns a string that tells you how many audio files were extracted.
     """
 
-    # Make the data folder if it doesn't already exist
-    Path(video_path).mkdir(exist_ok=True)
+    # Make the date folder if it doesn't already exist
+    Path(date_folder_path).mkdir(exist_ok=True)
 
     set_up_logging(log_path="logging/", log_level=log_level)
 
     # Create a counter for the number of audio files processed
     audio_file_counter = 0
 
-    # Go through all files in `video_path`
-    for child in video_path.iterdir():
+    # Go through all files in `date_folder_path`
+    for child in date_folder_path.iterdir():
         # Debugging: show the file name
         logging.debug(f"Detected file: {child.name}")
         # Store the extension of the file name
@@ -87,7 +87,7 @@ def extract_audio_from_video(
                         # Using ffmpeg to transform the video file into a .mp3 file
                         try:
                             # Create a variable to store the audio file's path
-                            audio_file_path = Path(video_path).joinpath(
+                            audio_file_path = Path(date_folder_path).joinpath(
                                 Path(new_child).name
                             )
                             # Debugging: print the audio file's path
@@ -129,7 +129,7 @@ def test_audio_extraction(date_folder):
             print("Video path: ", file_folder)
             # Test the function
             extract_audio_from_video(
-                video_path=Path(date_folder_path).joinpath(file_folder),
+                date_folder_path=Path(date_folder_path).joinpath(file_folder),
                 log_level=logging.DEBUG,
             )
 
