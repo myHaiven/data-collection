@@ -39,13 +39,10 @@ def extract_audio_from_video(
     """
 
     # Make the data folder if it doesn't already exist
-    Path(video_path).mkdir(exist_ok = True)
-    
-    # Make the extracted_audio folder if it doesn't already exist
-    Path(to_folder).mkdir(exist_ok = True)
-    
-    set_up_logging(log_path = "logging/", log_level = log_level)
-    
+    Path(video_path).mkdir(exist_ok=True)
+
+    set_up_logging(log_path="logging/", log_level=log_level)
+
     # Create a counter for the number of audio files processed
     audio_file_counter = 0
 
@@ -96,7 +93,7 @@ def extract_audio_from_video(
                             .run()
                             
                             # Create a variable to store the audio file's path
-                            audio_file_path = Path(to_folder).joinpath(
+                            audio_file_path = Path(video_path).joinpath(
                                 Path(new_child).name
                             )
                             # Debugging: print the audio file's path
