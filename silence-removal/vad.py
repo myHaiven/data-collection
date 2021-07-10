@@ -16,7 +16,7 @@ from datetime import datetime
 
 # Set up the logging
 set_up_logging(log_path="logging/vad/", log_level=logging.INFO)
-
+# Show system arguments
 logging.info(f"System arguments: {sys.argv}")
 
 
@@ -140,6 +140,22 @@ class VoiceActivityDetection:
 
 
 def remove_silences(date_folder):
+    """
+    Function that removes silences from all audio files in a folder.
+    File structure is
+    ```
+    | data
+    | |-- reddit
+    |     |-- date_folder
+    |         |-- filename_folder
+    |             |-- audio_file
+    ```
+    
+    Arguments:
+        date_folder | pathlib.PosixPath
+        Path to the date folder that contains the filename folders that contain
+        the audio files that you want to remove silences from.
+    """
     for file_folder in date_folder.iterdir():
         # Loop through raw files in the filename folders, excluding hidden
         # files
@@ -149,12 +165,14 @@ def remove_silences(date_folder):
             new_filename = input_filename
             audio_file_extension = Path(input_filename).suffix
             logging.info(f"Audio file extension: {audio_file_extension}")
+            # If the file isn't a .wav file, convert it into a .wav file
             if audio_file_extension != ".wav":
                 convert_to_wav(input_filename)
                 # replace filename extension with .wav
                 new_filename = re.sub(
                     pattern="\.mp3", repl=".wav", string=input_filename.name
                 )
+            # Use the .wav file
             wav = wf.read(str(new_filename))
             sample_rate = wav[0]
             audio_data = wav[1]
