@@ -5,6 +5,7 @@ from useful_functions import set_up_logging
 import ffmpeg
 import logging
 import re
+import sys
 
 
 def extract_audio_from_video(
@@ -114,16 +115,21 @@ def extract_audio_from_video(
     return str(audio_file_counter) + " audio " + file_word + " extracted!"
 
 
-def test_audio_extraction():    
+def test_audio_extraction(date_folder):
+    date_folder_path = Path(date_folder)
     # Testing function
-    # Make the path to the data folder that contains the video files
-    v_path_1 = Path.cwd().joinpath('data')
-    # Make a directory that you want the extracted audio to go into
-    a_path_1 = Path.cwd().joinpath('extracted_audio')
-    # Show where the video files are coming from
-    print("Video path: ", v_path_1)
-    # Test the function
-    extract_audio_from_video(video_path = v_path_1, to_folder = a_path_1,
-                             log_level = logging.DEBUG)
+    for file_folder in date_folder_path.iterdir():
+        # Ignore hidden files that start with "."
+        if not (file_folder.stem.startswith(".")):
+            print("Video path: ", file_folder)
+            # Test the function
+            extract_audio_from_video(
+                video_path=Path(date_folder_path).joinpath(file_folder),
+                log_level=logging.DEBUG,
+            )
 
-test_audio_extraction()
+
+# The first argument after the script name should be the date folder
+sys_date_folder = sys.argv[1]
+
+test_audio_extraction(date_folder=sys_date_folder)
