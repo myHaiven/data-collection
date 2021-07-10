@@ -21,11 +21,6 @@ def extract_audio_from_video(
     date_folder_path | pathlib.PosixPath
     Path to the directory that contains all of the video files.
     
-    Optional Arguments:
-    to_folder | pathlib.PosixPath
-    Path to the directory where you want to store the extracted audio. By default,
-    it will be extracted into a folder in date_folder_path's parent directory as 'extracted_audio'
-    
     video_extensions | list
     A list of strings that contains the extensions you want ffmpeg to extract
     audio from. The default includes `.mp4` files and `.mov` files.
