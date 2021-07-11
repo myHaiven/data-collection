@@ -193,7 +193,7 @@ def download_video(url, audio=False):
             string=url.split("/")[-1], pattern="(?<=\.mp4).*", repl=""
         )
         base_filename = url.split("/")[-1]
-        local_filename = f"{filename_part}_raw.mp4"
+        local_filename = f"{filename_part}.mp4"
 
     else:
         # Create file name with the last part of the url within the slashes
