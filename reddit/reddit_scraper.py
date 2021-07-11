@@ -3,7 +3,6 @@
 from datetime import datetime
 import praw
 import requests
-import pandas as pd
 import re
 from pathlib import Path  # For writing videos into the data folder
 import logging
