@@ -116,7 +116,8 @@ def extract_audio_from_video(
 
 
 def test_audio_extraction(date_folder):
-    date_folder_path = Path(date_folder)
+    print(Path(Path.cwd().parent, "data", "reddit", date_folder))
+    date_folder_path = Path(Path.cwd().parent, "data", "reddit", date_folder)
     # Testing function
     for file_folder in date_folder_path.iterdir():
         # Ignore hidden files that start with "."
@@ -130,6 +131,4 @@ def test_audio_extraction(date_folder):
 
 
 # The first argument after the script name should be the date folder
-sys_date_folder = sys.argv[1]
-
-test_audio_extraction(date_folder=sys_date_folder)
+test_audio_extraction(date_folder=sys.argv[1])
