@@ -1,3 +1,13 @@
+# .gitignore
+
+# Example data files to ignore
+data/reddit/2021-07-08/q356rndwpj251/*.wav
+data/reddit/2021-07-08/video2/*.wav
+data/reddit/2021-07-08/video2/*.mp3
+data/reddit/2021-07-10/
+data/streamable/2021-07-08/u2jzoo/*.wav
+data/streamable/2021-07-08/u2jzoo/*.mp3
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
