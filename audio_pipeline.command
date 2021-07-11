@@ -2,7 +2,13 @@
 
 # Bash script for running the audio pipeline for a date folder
 
-# Use `chmod u+x FILENAME` if permission denied
+# To test the files, do `path/to/audio_pipeline.command 2021-07-08`
+
+# The reddit scraper will download files to current date
+# The other scripts will use 2021-07-08 to test source and audio extraction
+# robustness
+
+# Use `chmod u+x audio_pipeline.command` if permission denied
 
 # Change to the directory containing the script
 cd "${0%/*}"
@@ -12,29 +18,27 @@ PROGNAME=$0
 # Error message
 usage() {
   cat << EOF >&2
-Usage: $PROGNAME [<source_path>] [<date_path>]
+Usage: $PROGNAME [<date>]
 
-<source_path>: ...
-
-<date_path>: ...
+<date>: ...
 
 EOF
   exit 1
 }
 # Check that there are at least 2 arguments
-if [ $# -lt 2 ]; then
-    echo "Error, you need to supply a date path and a source path!"
+if [ $# -lt 1 ]; then
+    echo "Error, you need to supply a date!"
     usage
     exit 1
 fi
 
 echo "Running audio pipeline"
 
+# Replace this with pip equivalent of activatin virtual environment
 source ~/Documents/Coding/anaconda3/etc/profile.d/conda.sh
 conda activate audio_pipeline
 
-SOURCE_NAME=$1
-DATE=$2
+DATE=$1
 
 cd ./reddit
 python reddit_scraper.py
