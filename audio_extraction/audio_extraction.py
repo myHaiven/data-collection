@@ -68,7 +68,7 @@ def extract_audio_from_video(
                         # Replace the extension with .mp3
                         new_child = re.sub(
                             pattern=f"{file_extension}$",
-                            repl=".mp3",
+                            repl="_raw.mp3",
                             string=new_child,
                         )
 
@@ -116,18 +116,20 @@ def extract_audio_from_video(
 
 
 def test_audio_extraction(date_folder):
-    print(Path(Path.cwd().parent, "data", "reddit", date_folder))
-    date_folder_path = Path(Path.cwd().parent, "data", "reddit", date_folder)
-    # Testing function
-    for file_folder in date_folder_path.iterdir():
-        # Ignore hidden files that start with "."
-        if not (file_folder.stem.startswith(".")):
-            print("Video path: ", file_folder)
-            # Test the function
-            extract_audio_from_video(
-                date_folder_path=Path(date_folder_path).joinpath(file_folder),
-                log_level=logging.DEBUG,
-            )
+    for source in Path(Path.cwd().parent, "data").glob("[!.]*"):
+        date_folder_path = Path(source, date_folder)
+        # Testing function
+        for file_folder in date_folder_path.iterdir():
+            # Ignore hidden files that start with "."
+            if not (file_folder.stem.startswith(".")):
+                print("Video path: ", file_folder)
+                # Test the function
+                extract_audio_from_video(
+                    date_folder_path=Path(date_folder_path).joinpath(
+                        file_folder
+                    ),
+                    log_level=logging.DEBUG,
+                )
 
 
 # The first argument after the script name should be the date folder
