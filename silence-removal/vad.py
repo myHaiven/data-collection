@@ -1,18 +1,14 @@
-#! /usr/bin/env python
-# encoding: utf-8
-
-
-from convert_to_wav import convert_to_wav
-from useful_functions import set_up_logging
+# Silence removal
 
 import logging
 import numpy as np
 import scipy.io.wavfile as wf
 import re
 import sys
-from pydub import AudioSegment  # This also requires ffmpeg on the device
 from pathlib import Path
-from datetime import datetime
+
+from useful_functions.useful_functions import set_up_logging
+from useful_functions.convert_to_wav import convert_to_wav
 
 # Set up the logging
 set_up_logging(log_path="logging/vad/", log_level=logging.INFO)
