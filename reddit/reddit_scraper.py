@@ -9,7 +9,7 @@ import logging
 
 # Currently, this isn't working; thinking about restructuing project so that
 # importing other python files isn't such a headache
-from useful_functions import set_up_logging
+from useful_functions.useful_functions import set_up_logging
 
 # Make sure the praw.ini file is in the correct directory
 # Also, make sure there is a folder called "data" in the same directory that
