@@ -169,11 +169,12 @@ def remove_silences(date_folder):
                 if audio_file_extension != ".wav":
                     convert_to_wav(input_filename)
                     # replace filename extension with .wav
-                    new_filename = re.sub(
-                        pattern="\.mp3", repl=".wav", string=input_filename.name
-                    )
+                    new_filename = f"{input_filename.stem}.wav"
                 # Use the .wav file
-                wav = wf.read(str(Path(Path(file_folder), new_filename)))
+                try:
+                    wav = wf.read(str(Path(Path(file_folder), new_filename)))
+                except (ValueError):
+                    raise Exception(f"{new_filename} failed.")
                 sample_rate = wav[0]
                 audio_data = wav[1]
                 logging.info(f"Audio data: {audio_data}")
