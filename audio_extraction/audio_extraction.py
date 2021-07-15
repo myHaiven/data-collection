@@ -1,7 +1,7 @@
 # Audio extraction
 
 from pathlib import Path
-from useful_functions import set_up_logging
+from useful_functions.useful_functions import set_up_logging
 import ffmpeg
 import logging
 import re
