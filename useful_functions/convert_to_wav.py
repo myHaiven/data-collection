@@ -1,11 +1,12 @@
 # Script that converts audio files into .wav files
 
 from datetime import datetime
-from useful_functions import set_up_logging
 from pathlib import Path
 from pydub import AudioSegment  # This also requires ffmpeg on the device
 import re
 import logging
+
+from useful_functions.useful_functions import set_up_logging
 
 # Function that converts `.aac` or `.mp3` files to `.wav`
 def convert_to_wav(audio_file_path):
