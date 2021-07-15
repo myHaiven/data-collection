@@ -118,19 +118,33 @@ def extract_audio_from_video(
 def test_audio_extraction(date_folder):
     for source in Path(Path.cwd().parent, "data").glob("[!.]*"):
         date_folder_path = Path(source, date_folder)
-        # Testing function
-        for file_folder in date_folder_path.iterdir():
-            # Ignore hidden files that start with "."
-            if not (file_folder.stem.startswith(".")):
-                print("Video path: ", file_folder)
-                # Test the function
-                extract_audio_from_video(
-                    date_folder_path=Path(date_folder_path).joinpath(
-                        file_folder
-                    ),
-                    log_level=logging.DEBUG,
-                )
+        # If the date folder exists for the source, extract audio
+        if date_folder_path.exists():
+            # Testing function
+            for file_folder in date_folder_path.iterdir():
+                # Ignore hidden files that start with "."
+                if not (file_folder.stem.startswith(".")):
+                    print("Video path: ", file_folder)
+                    # Test the function
+                    extract_audio_from_video(
+                        date_folder_path=Path(date_folder_path).joinpath(
+                            file_folder
+                        ),
+                        log_level=logging.DEBUG,
+                    )
+        # It's okay if the source folder doesn't have the date folder
+        else:
+            print(
+                f"Source {source} does not have the date folder {date_folder}."
+            )
 
 
 # The first argument after the script name should be the date folder
-test_audio_extraction(date_folder=sys.argv[1])
+try:
+    test_audio_extraction(date_folder=sys.argv[1])
+# Raise error if date argument is missing
+except (IndexError):
+    raise Exception(
+        f"Error, you must supply a date like the example below:\n"
+        + "python audio_extraction.py 2021-07-14"
+    )
