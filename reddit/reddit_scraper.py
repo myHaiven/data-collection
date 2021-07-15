@@ -252,7 +252,7 @@ def test_functions(download_quantity=2):
     # Select the public freakout subreddit
     sr1 = reddit.subreddit("PublicFreakout")
     # Select the top 10 (it is selecting top 10 of the year by default)
-    top1 = sr1.top(limit=download_quantity)
+    top1 = sr1.top(time_filter="day", limit=download_quantity)
     # Initialize arrays
     urls = []
     ### buggy1 = []
