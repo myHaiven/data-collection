@@ -195,5 +195,11 @@ def remove_silences(date_folder):
                 print("done vad")
 
 
-remove_silences(date_folder=sys.argv[1])
+try:
+    remove_silences(date_folder=sys.argv[1])
+except (IndexError):
+    raise Exception(
+        f"Error, you must supply a date like the example below:\n"
+        + "python vad.py 2021-07-14"
+    )
 
