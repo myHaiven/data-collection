@@ -125,7 +125,7 @@ def test_audio_extraction(date_folder):
             for file_folder in date_folder_path.iterdir():
                 # Ignore hidden files that start with "."
                 if not (file_folder.stem.startswith(".")):
-                    print("Video path: ", file_folder)
+                    logging.info("Video path: ", file_folder)
                     # Test the function
                     extract_audio_from_video(
                         date_folder_path=Path(date_folder_path).joinpath(
