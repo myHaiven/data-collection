@@ -9,9 +9,21 @@ import logging
 
 from useful_functions.useful_functions import set_up_logging
 
+# Requirements
+
+# This file should be named `reddit_scraper.py`; the path to the script is
+# hard coded at
+# ```{python}
+# script_name = "reddit_scraper.py"
+# path1 = Path("./", script_name)
+# ```
+
 # Make sure the praw.ini file is in the correct directory
+
 # Also, make sure there is a folder called "data" in the same directory that
-# contains this script
+# contains this script so that download_video() works. The path to data folder
+# is hard coded at `data_path = Path("../data").resolve()` in the
+# `download_video()` function
 
 # Set up the logging
 set_up_logging(log_path="logging/reddit_scraper/", log_level=logging.INFO)
@@ -56,20 +68,20 @@ def convert_reddit(video_url):
     """
     audio_url = ""
 
+    # If there is a .mp4 extension in the url, replace with "DASH_audio.mp4"
     if bool(re.search(string=video_url, pattern="\/DASH_\d{2,4}\.mp4")):
-        # If there is a .mp4 extension in the url, replace with "DASH_audio.mp4"
         audio_url = re.sub(
             string=video_url,
             pattern="\/DASH_\d{2,4}\.mp4",
             repl="/DASH_audio.mp4",
         )
 
+    # Else if there is no .mp4 extension in the url, just replace with "audio"
     elif bool(re.search(string=video_url, pattern="\/DASH_(\d{2,4})\?")):
-        # If there is no .mp4 extension in the url, just replace with "audio"
         audio_url = re.sub(
             string=video_url, pattern="\/DASH_(\d{2,4})\?", repl="/audio?"
         )
-
+    # Else notify user that no match was detected
     else:
         print("error, no match detected")
         logging.info(f"No match detected with video url: f{video_url}")
@@ -159,6 +171,9 @@ def download_video(url, audio=False):
     audio | boolean | True will set the extension to .aac, False will set the 
     extension to .mp4
     
+    audio | boolean | boolean value for whether or not you want to download the
+    video file or the audio file
+
     Returns:
     local_filename | string | name of the downloaded file
     """
@@ -283,4 +298,6 @@ def test_functions(download_quantity=2):
     print("files downloaded")
 
 
-test_functions()
+# Take daily top 50 links from the public freakout subreddit and attempt to
+# download
+test_functions(download_quantity=50)
