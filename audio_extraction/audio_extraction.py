@@ -143,6 +143,7 @@ def test_audio_extraction(date_folder):
 # The first argument after the script name should be the date folder
 try:
     test_audio_extraction(date_folder=sys.argv[1])
+    print("Audio extraction complete")
 # Raise error if date argument is missing
 except (IndexError):
     raise Exception(
