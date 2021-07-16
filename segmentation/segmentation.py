@@ -25,3 +25,5 @@ for folder in date_path.glob("[!.]*"):
             Path(file_path.parent, f"{file_path.stem}_{i}.wav"), format="wav"
         )
         print(f"{file_path.stem}_{i}.wav")
+
+print("Segmentation finished")
