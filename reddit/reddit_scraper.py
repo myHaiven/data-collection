@@ -272,14 +272,14 @@ def test_functions(download_quantity=2):
     # Place the relevant info into the array from the selected top 3
     for i in top1:
         ### # Debugging error where some attribute doesn't exist
-        print(len(urls))
+        logging.info(len(urls))
         ### if(len(urls) == 15):
         ###     buggy1.append(i)
         try:
             urls.append(video_url_from_submission(i))
         except:
             print(urls.append(video_url_from_submission(i)))
-    print("urls appended")
+    print("urls appended, starting downloads")
     # Download the videos
     for i in range(len(urls)):
         for j in range(len(urls[i])):
@@ -295,7 +295,7 @@ def test_functions(download_quantity=2):
                 print(f"Error with post number {str(i)}")
                 print(f"Exception: {exception}")
 
-    print("files downloaded")
+    print("reddit_scraper.py finished")
 
 
 # Take daily top 50 links from the public freakout subreddit and attempt to
