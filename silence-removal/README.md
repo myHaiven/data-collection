@@ -24,9 +24,19 @@ MacOS, this can be installed with
 
 ### Directories
 
-`vad.py` will generate a logging folder in its directory and generates the
+`vad.py` will generate a logging folder in its own directory and generates the
 output to its directory as well. `useful_functions.py` and `convert_to_wav.py`
-should be in the same directory as `vad.py`.
+should be in the parent directory inside a folder called `useful_functions`.
+Here's the file structure:
+
+```{python}
+| data-collection
+| |-- silence-removal
+|     |-- vad.py
+| |-- useful_functions
+|     |-- useful_functions.py
+|     |-- convert_to_wav.py
+```
 
 ## Usage
 
