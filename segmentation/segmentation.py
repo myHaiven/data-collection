@@ -1,4 +1,6 @@
 # segmentation.py
+# Script that loops through a folder and segments audio into 10 second snippets
+# or smaller
 
 from pathlib import Path  # For writing videos into the data folder
 from pydub import AudioSegment  # This also requires ffmpeg on the device
