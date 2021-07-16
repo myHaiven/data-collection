@@ -4,16 +4,6 @@ from pathlib import Path  # For writing videos into the data folder
 from pydub import AudioSegment  # This also requires ffmpeg on the device
 import sys
 
-# Path to the file; can loop through a date folder later on
-file_path = Path(
-    Path.cwd().parent,
-    "data",
-    "reddit",
-    "2021-07-10",
-    "q356rndwpj251",
-    "q356rndwpj251_raw.aac",
-)
-
 date_path = Path(Path.cwd().parent, "data", "reddit", sys.argv[1])
 
 # Pydub uses milleseconds as the units; 10 000 is 10 seconds
@@ -35,4 +25,3 @@ for folder in date_path.glob("[!.]*"):
             Path(file_path.parent, f"{file_path.stem}_{i}.wav"), format="wav"
         )
         print(f"{file_path.stem}_{i}.wav")
-
