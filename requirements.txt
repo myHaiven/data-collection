@@ -36,6 +36,7 @@ typed-ast @ file:///opt/concourse/worker/volumes/live/15e6a700-fafa-4d5e-4ab5-70
 typing-extensions @ file:///home/ktietz/src/ci_mi/typing_extensions_1612808209620/work
 update-checker==0.18.0
 urllib3==1.26.6
+-e git+git@github.com:myHaiven/data-collection.git@8cbcc1a101c5af6131ee20344c173a6c6654ab51#egg=useful_functions
 websocket-client==1.1.0
 wrapt @ file:///opt/concourse/worker/volumes/live/1381ca3b-f984-4f5c-4f46-a67ca4eeffa5/volume/wrapt_1607574524589/work
 zipp @ file:///tmp/build/80754af9/zipp_1615904174917/work
