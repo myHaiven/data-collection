@@ -135,7 +135,7 @@ def test_audio_extraction(date_folder):
                     )
         # It's okay if the source folder doesn't have the date folder
         else:
-            print(
+            logging.info(
                 f"Source {source} does not have the date folder {date_folder}."
             )
 
