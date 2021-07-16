@@ -2,6 +2,26 @@
 
 Data and automated tools for data collection
 
+# Requirements
+
+- The device must have [`ffmpeg`](https://ffmpeg.org/download.html) installed
+- There must be a `praw.ini` file in the `reddit` folder
+- The `useful_functions` setup must be done (see the setup section below)
+
+# Example `praw.ini` file
+
+```{praw.ini}
+[bot1]
+client_id=TYPE_YOUR_CLIENT_ID_HERE
+client_secret=TYPE_YOUR_CLIENT_SECRET_HERE
+password=TYPE_YOUR_PASSWORD_HERE
+username=TYPE_YOUR_USERNAME_HERE
+user_agent=bot1
+```
+
+Details can be found in the
+[PRAW documentation](https://praw.readthedocs.io/en/stable/getting_started/configuration/prawini.html).
+
 # Setup
 
 The scripts `reddit_scraper.py`, `audio_extraction.py`, and `vad.py` require
