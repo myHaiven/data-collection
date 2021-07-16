@@ -153,9 +153,9 @@ def remove_silences(date_folder):
         the audio files that you want to remove silences from.
     """
 
+    # Loop through the source folders (Reddit, Streamable)
     for source in Path(Path.cwd().parent, "data").glob("[!.]*"):
         date_folder_path = Path(source, date_folder)
-
         for file_folder in date_folder_path.glob("[!.]*"):
             # Loop through raw files in the filename folders, excluding hidden
             # files
@@ -192,7 +192,7 @@ def remove_silences(date_folder):
                 output_path = Path(Path(file).parent, output_name)
                 # Write the processed audio into a new `.wav` file
                 wf.write(f"{output_path}", sample_rate, voice_samples)
-                print("done vad")
+                print("done silence removal")
 
 
 try:

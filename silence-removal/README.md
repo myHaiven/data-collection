@@ -1,7 +1,11 @@
 # Adaptive voice activity detection
-Python script that cuts out silent audio sounds. [Original `vad.py`](https://github.com/mauriciovander/silence-removal) written by [mauriciovander](https://github.com/mauriciovander/)
+
+Python script that cuts out silent audio sounds.
+[Original `vad.py`](https://github.com/mauriciovander/silence-removal) written
+by [mauriciovander](https://github.com/mauriciovander/)
 
 ## Table of contents
+
 - [Adaptive voice activity detection](#adaptive-voice-activity-detection)
   - [Table of contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
@@ -13,20 +17,27 @@ Python script that cuts out silent audio sounds. [Original `vad.py`](https://git
 --
 
 ## Prerequisites
-The system must have [ffmpeg](https://ffmpeg.org/download.html) installed. On MacOS, this can be installed with [brew](https://formulae.brew.sh/formula/ffmpeg) via `brew install ffmpeg`.
+
+The system must have [ffmpeg](https://ffmpeg.org/download.html) installed. On
+MacOS, this can be installed with
+[brew](https://formulae.brew.sh/formula/ffmpeg) via `brew install ffmpeg`.
 
 ### Directories
-`vad.py` will generate a logging folder in its directory and generates the output to its directory as well. `useful_functions.py` and `convert_to_wav.py` should be in the same directory as `vad.py`.
+
+`vad.py` will generate a logging folder in its directory and generates the
+output to its directory as well. `useful_functions.py` and `convert_to_wav.py`
+should be in the same directory as `vad.py`.
 
 ## Usage
+
 Examples of using the silence removal script `vad.py`:
+
 ```{python}
-python vad.py './data/0no4f8nb0d351.aac' '0no4f8nb0d351_(processed)'
-python vad.py './data/clip_(stereo).mp3' 'clip_(stereo)_(processed)'
-python vad.py './data/taps_(mono).wav' 'taps_(mono)_(processed)'
+python vad.py 2021-07-14
 ```
 
 ## Details
+
 <details><summary>Array formats for different audio channel types</summary>
 For mono audio, the data is formatted as a single array of amplitude values. 
 ```{python}
@@ -39,11 +50,12 @@ For stereo audio, the data is formatted as an array of arrays, with the inner ar
 </details>
 
 <details><summary>Log file contents</summary>
-At the info level, the log file for `vad.py` shows the system arguments, audio file's filename and extension, the new audio filename, a preview of the amplitude data, and a confirmation of whether or not the audio is mono or stereo.  
+At the info level, the log file for `vad.py` shows the system arguments, audio file's filename and extension, the new audio filename, a preview of the amplitude data, and a confirmation of whether or not the audio is mono or stereo.
 
 At the debug level, it shows the first frame of amplitude measurements.
 
 The `convert_to_wav` log file shows the before and after filenames.
+
 </details>
 
 <details><summary>Log file location</summary>
@@ -53,7 +65,6 @@ The `convert_to_wav` log file shows the before and after filenames.
 <details><summary>Log file naming and overwriting</summary>
 The log file filenames are based on the current time and are unique to the minute. If a log is created and a file with the same name already exists, the new log will just be appended to the existing file.  
 </details>
-
 
 <details><summary>Logging levels</summary>
 Logging levels can be adjusted in these lines of code for `vad.py`, `useful_functions.py`, and `.convert_to_wav.py`:
@@ -76,5 +87,7 @@ The threshold for silence removal can be adjusted on this line of code: `if self
 </details>
 
 ## References:
-* [Original `vad.py`](https://github.com/mauriciovander/silence-removal) written by [mauriciovander](https://github.com/mauriciovander/)
-* [derobert on how audio is represented in numbers](https://stackoverflow.com/a/732830)
+
+- [Original `vad.py`](https://github.com/mauriciovander/silence-removal) written
+  by [mauriciovander](https://github.com/mauriciovander/)
+- [derobert on how audio is represented in numbers](https://stackoverflow.com/a/732830)
