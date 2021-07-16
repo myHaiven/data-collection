@@ -14,12 +14,13 @@ def extract_audio_from_video(
     log_level=logging.WARNING,
 ):
     """
-    Function that goes into the directory and extracts audio from all `.mp4`
-    files and outputs it into a folder called 'extracted_audio'
+    Function that goes into the directory and extracts audio from all `.mp4` 
+    and `.mov` files and outputs it into date folder in the parent 
+    data/SOURCE_NAME/ folder
     
     Arguments:
-    date_folder_path | pathlib.PosixPath
-    Path to the directory that contains all of the video files.
+    date_folder_path | str
+    Path to the directory that contains all of the video filename folders.
     
     video_extensions | list
     A list of strings that contains the extensions you want ffmpeg to extract
