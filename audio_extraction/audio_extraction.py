@@ -79,7 +79,8 @@ def extract_audio_from_video(
                         ## '0' is the best quality mp3 encoding,
                         ## '-map a' only grabs audio
 
-                        # Using ffmpeg to transform the video file into a .mp3 file
+                        # Using ffmpeg to transform the video file into a .mp3
+                        # file
                         try:
                             # Create a variable to store the audio file's path
                             audio_file_path = Path(date_folder_path).joinpath(
