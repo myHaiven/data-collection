@@ -24,6 +24,20 @@ Details can be found in the
 
 # Setup
 
+## Setting up the Python environment
+
+If using Python venv, you can use the code below to set up the code:
+
+```{bash}
+python3 -m pip install -r requirements.txt
+```
+
+If using Conda, you can use:
+
+```{bash}
+conda create --name <env> --file requirements.txt
+```
+
 The scripts `reddit_scraper.py`, `audio_extraction.py`, and `vad.py` require
 imports from the folder `useful_functions`. Here are the steps to make the
 imports work:
@@ -33,6 +47,8 @@ imports work:
 - Run `pip install -e .`
 
 The imports should work afterwards.
+
+The `pip install -e.` line
 
 ## Changes for testing `reddit_scraper.py`
 
