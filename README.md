@@ -36,6 +36,8 @@ If using Conda, you can use:
 
 ```{bash}
 conda create --name <env> --file requirements.txt
+conda activate <env>
+conda install pip
 ```
 
 The scripts `reddit_scraper.py`, `audio_extraction.py`, and `vad.py` require
