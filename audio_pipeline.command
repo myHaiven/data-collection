@@ -34,9 +34,21 @@ fi
 
 echo "Running audio pipeline"
 
-# Replace this with pip equivalent of activatin virtual environment
-source ~/Documents/Coding/anaconda3/etc/profile.d/conda.sh
-conda activate audio_pipeline
+# Replace this with either the Conda or Python version
+"""
+Let 'test-env' be the environment name.
+
+Conda:
+```
+source /home/jackiel/miniconda3/etc/profile.d/conda.sh
+conda activate test-env
+```
+
+Python:
+```
+source test-env/bin/activate
+```
+"""
 
 DATE=$1
 
