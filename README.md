@@ -26,7 +26,8 @@ Details can be found in the
 
 ## Setting up the Python environment
 
-If using Python venv, you can use the code below to set up the code:
+If using Python venv, first activate your environment, then use the code below
+to set up the packages for the environment:
 
 ```{bash}
 python3 -m pip install -r requirements.txt
