@@ -34,21 +34,13 @@ fi
 
 echo "Running audio pipeline"
 
-# Replace this with either the Conda or Python version
-"""
-Let 'test-env' be the environment name.
-
-Conda:
-```
-source /home/jackiel/miniconda3/etc/profile.d/conda.sh
-conda activate test-env
-```
-
-Python:
-```
+# If using Python venv, replace the line below with your venv activation line
 source test-env/bin/activate
-```
-"""
+
+# If using conda, source the conda.sh and then activate your environment like
+# so:
+# source /home/jackiel/miniconda3/etc/profile.d/conda.sh
+# conda activate test-env
 
 DATE=$1
 
