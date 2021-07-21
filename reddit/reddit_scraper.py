@@ -300,4 +300,4 @@ def test_functions(download_quantity=2):
 
 # Take daily top 50 links from the public freakout subreddit and attempt to
 # download
-test_functions(download_quantity=2)
+test_functions(download_quantity=50)
