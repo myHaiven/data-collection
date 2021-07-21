@@ -49,9 +49,9 @@ imports work:
 - Change directories into the `data-collection` folder
 - Run `pip install -e .`
 
-The imports should work afterwards.
-
-The `pip install -e.` line
+The `pip install -e .` line installs the `useful_functions/` folder as a package
+so that it can be imported in the various Python scripts such as
+`reddit_scraper.py`.
 
 ## Changes for testing `reddit_scraper.py`
 
