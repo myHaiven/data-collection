@@ -144,7 +144,7 @@ def remove_silences(date_folder):
     | |-- reddit
     |     |-- date_folder
     |         |-- filename_folder
-    |             |-- audio_file
+    |             |-- audio_files
     ```
     
     Arguments:
