@@ -9,7 +9,7 @@ import sys
 date_path = Path(Path.cwd().parent, "data", "reddit", sys.argv[1])
 
 # Pydub uses milleseconds as the units; 10 000 is 10 seconds
-ten_seconds = 10 * 1000
+ten_seconds = 30 * 1000
 
 date_path.glob("[!.]*")
 
