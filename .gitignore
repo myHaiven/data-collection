@@ -1,3 +1,8 @@
+# .gitignore
+
+# Example data files to ignore
+data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
