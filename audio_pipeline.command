@@ -49,13 +49,13 @@ PROCESSINGPATH=$(pwd)
 #cd ./reddit
 #python reddit_scraper.py
 
+python $PROCESSINGPATH/audio_extraction/audio_extraction.py $PATH
+
 cd $PATH
 
 for folder in */
 do
   echo "Processing $folder"
-
-  python $PROCESSINGPATH/audio_extraction/audio_extraction.py $folder
 
   python $PROCESSINGPATH/silence-removal/vad.py $folder
 

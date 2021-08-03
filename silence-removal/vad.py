@@ -1,11 +1,16 @@
 # Silence removal
 
+# This script has been update to only run one folder at a time
+# Uncomment the noted lines to run the script on all folders in a single scrape
+
 import logging
 import numpy as np
 import scipy.io.wavfile as wf
 import re
 import sys
 from pathlib import Path
+from os import listdir
+from os.path import isfile, join
 
 from useful_functions.useful_functions import set_up_logging
 from useful_functions.convert_to_wav import convert_to_wav
@@ -134,7 +139,7 @@ class VoiceActivityDetection:
         else:
             raise Exception("Error, data is neither mono or stereo!")
 
-
+# in the case where you are not loping the date_folder is just a audio file folder
 def remove_silences(date_folder):
     """
     Function that removes silences from all audio files in a folder.
@@ -152,47 +157,98 @@ def remove_silences(date_folder):
         Path to the date folder that contains the filename folders that contain
         the audio files that you want to remove silences from.
     """
+    date_folder_path = Path(date_folder)
+    # comment out to loop
+    file_folder = date_folder_path
+    input_filename = ''
+    # Uncommnet to loop
+    #for file_folder in date_folder_path.glob("[!.]*"):
+        # Loop through raw files in the filename folders, excluding hidden
+        # files
+    # tab over to loop
+    files = [f for f in listdir(file_folder) if isfile(join(file_folder, f))]
+    if len(files) == 1:
+        input_filename = Path(file_folder,Path(files[0]))
+        if "_raw." in files[0]:
+            audio_file_extension = Path(input_filename).suffix
+            logging.info(f"Audio file extension: {audio_file_extension}")
+            # If the file isn't a .wav file, convert it into a .wav file
+            if audio_file_extension != ".wav":
+                print("creating .wav")
+                convert_to_wav(input_filename)
+                # replace filename extension with .wav
+                input_filename = Path(file_folder,Path(f"{input_filename.stem}.wav"))
+        else:
+            print(f"This folder does not contain a file with the correct format, skipping {file_folder}")
+            # Uncomment below to allow loop to continue if looping
+            #continue
+            # Comment out the following to loop
+            exit(1)
+    elif not len(files):
+        print(f"This folder does not contain any files, skipping {file_folder}")
+        # Uncomment below to allow loop to continue if looping
+        #continue
+        # Comment out the following to loop
+        exit(1)
+    else:
+        if any("processed.wav" in filename for filename in files):
+            print(f"It appears this file has already been processed, skipping {file_folder}")
+            # Uncomment below to allow loop to continue if looping
+            #continue
+            # Comment out the following to loop
+            exit(1)
+        raw_files = [file for file in files if "_raw." in file]
+        input_filename = [file for file in raw_files if ".wav" in file]
+        if not len(input_filename) and len(raw_files) == 1 :
+            input_filename = Path(file_folder,Path(raw_files[0]))
+            audio_file_extension = Path(input_filename).suffix
+            logging.info(f"Audio file extension: {audio_file_extension}")
+            # If the file isn't a .wav file, convert it into a .wav file
+            if audio_file_extension != ".wav":
+                print("creating .wav")
+                convert_to_wav(input_filename)
+                # replace filename extension with .wav
+                input_filename = Path(file_folder,Path(f"{input_filename.stem}.wav"))
+        elif not len(input_filename):
+            print(f"This folder does not contain a file with the correct format or too many raw files, skipping {file_folder}")
+            # Uncomment below to allow loop to continue if looping
+            #continue
+            # Comment out the following to loop
+            exit(1)
+        elif len(input_filename) == 1:
+            print(".wav file already exists")
+            input_filename = Path(file_folder, Path(input_filename[0]))
+        else:
+            print(f"Warning: There may be extra files inside of {file_folder}, check for extra files")
+            # Uncomment below to allow loop to continue if looping
+            #continue
+            # Comment out the following to loop
+            exit(1)
 
-    # Loop through the source folders (Reddit, Streamable)
-    for source in Path(Path.cwd().parent, "data").glob("[!.]*"):
-        date_folder_path = Path(source, date_folder)
-        for file_folder in date_folder_path.glob("[!.]*"):
-            # Loop through raw files in the filename folders, excluding hidden
-            # files
-            for file in file_folder.glob("[!.]*_raw.???"):
-                print(f"Path: {Path(file)}")
-                input_filename = file
-                new_filename = input_filename
-                audio_file_extension = Path(input_filename).suffix
-                logging.info(f"Audio file extension: {audio_file_extension}")
-                # If the file isn't a .wav file, convert it into a .wav file
-                if audio_file_extension != ".wav":
-                    convert_to_wav(input_filename)
-                    # replace filename extension with .wav
-                    new_filename = f"{input_filename.stem}.wav"
-                # Use the .wav file
-                try:
-                    wav = wf.read(str(Path(Path(file_folder), new_filename)))
-                except (ValueError):
-                    raise Exception(f"{new_filename} failed.")
-                sample_rate = wav[0]
-                audio_data = wav[1]
-                logging.info(f"Audio data: {audio_data}")
+    print(f"Path: {Path(input_filename)}")
+    # Use the .wav file
+    try:
+        wav = wf.read(str(Path(Path(file_folder), input_filename)))
+    except (ValueError):
+        raise Exception(f"{input_filename} failed.")
+    sample_rate = wav[0]
+    audio_data = wav[1]
+    logging.info(f"Audio data: {audio_data}")
 
-                vad = VoiceActivityDetection()
-                # Remove the silences
-                vad.process(audio_data)
-                # Get the processed audio
-                voice_samples = vad.get_voice_samples()
-                output_name = re.sub(
-                    pattern=f"_raw\..*",
-                    repl="_processed.wav",
-                    string=Path(new_filename).name,
-                )
-                output_path = Path(Path(file).parent, output_name)
-                # Write the processed audio into a new `.wav` file
-                wf.write(f"{output_path}", sample_rate, voice_samples)
-                print("done silence removal")
+    vad = VoiceActivityDetection()
+    # Remove the silences
+    vad.process(audio_data)
+    # Get the processed audio
+    voice_samples = vad.get_voice_samples()
+    output_name = re.sub(
+        pattern=f"_raw\..*",
+        repl="_processed.wav",
+        string=Path(input_filename).name,
+    )
+    output_path = Path(Path(input_filename).parent, output_name)
+    # Write the processed audio into a new `.wav` file
+    wf.write(f"{output_path}", sample_rate, voice_samples)
+    print("done silence removal")
 
 
 try:
