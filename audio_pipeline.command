@@ -2,7 +2,7 @@
 
 # Bash script for running the audio pipeline for a date folder
 
-# To test the files, do `path/to/audio_pipeline.command 2021-07-08`
+# To test the files, do `path/to/audio_pipeline.command /path/to/source/date`
 
 # The reddit scraper will download files to current date
 # The other scripts will use 2021-07-08 to test source and audio extraction
@@ -42,17 +42,22 @@ source test-env/bin/activate
 # source /home/jackiel/miniconda3/etc/profile.d/conda.sh
 # conda activate test-env
 
-DATE=$1
+PATH=$1
+PROCESSINGPATH=$(pwd)
 
-cd ./reddit
-python reddit_scraper.py
+# uncomment to run a scrape
+#cd ./reddit
+#python reddit_scraper.py
 
-cd ../audio_extraction
-python audio_extraction.py $DATE
+for folder in $PATH
+do
+  echo "Processing $folder files"
 
-cd ../silence-removal
-python vad.py $DATE
+  python $PROCESSINGPATH/audio_extraction/audio_extraction.py $folder
 
-cd ../segmentation
-python segmentation.py $DATE
+  python $PROCESSINGPATH/silence-removal/vad.py $folder
+
+  python $PROCESSINGPATH/segmentation/segmentation.py $folder
+
+done
 
