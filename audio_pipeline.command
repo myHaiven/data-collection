@@ -10,9 +10,6 @@
 
 # Use `chmod u+x audio_pipeline.command` if permission denied
 
-# Change to the directory containing the script
-cd "${0%/*}"
-
 PROGNAME=$0
 
 # Error message
@@ -35,31 +32,35 @@ fi
 echo "Running audio pipeline"
 
 # If using Python venv, replace the line below with your venv activation line
-source test-env/bin/activate
+source /dataprocessing/data-collection/venv/bin/activate
 
 # If using conda, source the conda.sh and then activate your environment like
 # so:
 # source /home/jackiel/miniconda3/etc/profile.d/conda.sh
 # conda activate test-env
 
-PATH=$1
 PROCESSINGPATH=$(pwd)
 
 # uncomment to run a scrape
 #cd ./reddit
-#python reddit_scraper.py
+# /home/jackiel/data-collection/venv/bin/python reddit_scraper.py
+# which python
+export PATH=$PATH:/dataprocessing/data-collection/venv/bin/
 
-python $PROCESSINGPATH/audio_extraction/audio_extraction.py $PATH
+filepath=$1
+python $PROCESSINGPATH/audio_extraction/audio_extraction.py $filepath
 
-cd $PATH
+cd $filepath
 
 for folder in */
 do
   echo "Processing $folder"
 
-  python $PROCESSINGPATH/silence-removal/vad.py $folder
+  cd $PROCESSINGPATH/silence-removal/
+  python vad.py "$filepath/$folder"
 
-  python $PROCESSINGPATH/segmentation/segmentation.py $folder
+  cd $PROCESSINGPATH/segmentation
+  python segmentation.py "$filepath/$folder"
 
 done
 
