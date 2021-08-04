@@ -258,4 +258,3 @@ except (IndexError):
         f"Error, you must supply a date like the example below:\n"
         + "python vad.py 2021-07-14"
     )
-
