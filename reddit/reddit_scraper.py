@@ -148,11 +148,12 @@ def audio_url_from_submission(submission):
                 "reddit_video"
             ]["fallback_url"]
 
-        # Append the video url to the list
-        url_array.append(video_url)
+        ### # Append the video url to the list
+        ### url_array.append(video_url)
         # Get the audio
         audio_url = convert_reddit(video_url)
         url_array.append(audio_url)
+        print(url_array)
 
     else:
         print(f"This script does not support {submission.domain}")
