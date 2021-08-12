@@ -241,14 +241,23 @@ def download_media(url):
     # Using with to automatically close the connection when we are done with it
     with requests.get(url, stream=True) as req:
         # Raise an http error if there is one
-        req.raise_for_status()
-        # Write the file in binary
-        with open(path3, "wb") as video_file:
-            for chunk in req.iter_content(chunk_size=4000):
-                # If you have chunk encoded response uncomment if
-                # and set chunk_size parameter to None.
-                # if chunk:
-                video_file.write(chunk)
+        print(req)
+        print(req.ok)
+        if not req.ok:
+            logging.info(req)
+            logging.info(
+                f"No file will be downloaded, removing empty directory: {path2}"
+            )
+            # Remove empty directory because we don't expect to have a file
+            path2.rmdir()
+        else:
+            # Write the file in binary
+            with open(path3, "wb") as video_file:
+                for chunk in req.iter_content(chunk_size=4000):
+                    # If you have chunk encoded response uncomment if
+                    # and set chunk_size parameter to None.
+                    # if chunk:
+                    video_file.write(chunk)
 
     return local_filename
 
