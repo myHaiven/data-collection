@@ -185,16 +185,17 @@ def download_media(url):
     base_filename = ""
 
     # If this is reddit
-    if re.match(string=root_url, pattern="^v\.redd\.it"):
+    if re.search(string=root_url, pattern="^v\.redd\.it"):
         source = "reddit"
-        if audio == True:
+        # If the url is an audio url
+        if re.search(string=url, pattern="/.*audio\?source=fallback"):
             file_suffix = "_raw.aac"
         else:
             file_suffix = ".mp4"
         # Use the second last part of the url within the slashes, it
         # should be unique
         base_filename = url.split("/")[-2]
-        local_filename = f"{url.split('/')[-2]}{file_suffix}"
+        local_filename = f"{base_filename}{file_suffix}"
 
     # If this is streamable, chop off the stuff after .mp4
     elif re.match(string=root_url, pattern="^.*streamable.com"):
