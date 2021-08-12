@@ -298,9 +298,8 @@ def test_functions(download_quantity=2):
                 # Also, some of the posts are not videos. When printing the #
                 # length of the url, sometimes it says "errorgfycat.com" or
                 # "errori.redd.it" for example.
-                print(f"Error with post number {str(i)}")
-                print(f"Exception: {exception}")
-
+                logging.info(f"Error with post number {str(i)}")
+                logging.info(f"Exception: {exception}")
     print("reddit_scraper.py finished")
 
 
