@@ -21,9 +21,9 @@ from useful_functions.useful_functions import set_up_logging
 # Make sure the praw.ini file is in the correct directory
 
 # Also, make sure there is a folder called "data" in the same directory that
-# contains this script so that download_video() works. The path to data folder
+# contains this script so that download_media() works. The path to data folder
 # is hard coded at `data_path = Path("../data").resolve()` in the
-# `download_video()` function
+# `download_media()` function
 
 # Set up the logging
 set_up_logging(log_path="logging/reddit_scraper/", log_level=logging.INFO)
@@ -89,9 +89,9 @@ def convert_reddit(video_url):
     return audio_url
 
 
-def video_url_from_submission(submission):
+def audio_url_from_submission(submission):
     """
-    Get the video file urls from the given submission
+    Get the audio file urls from the given submission
     
     Arguments:
     submission | praw.models.reddit.submission.Submission | the elements in the 
@@ -99,7 +99,7 @@ def video_url_from_submission(submission):
     generator Ex. `for i in reddit.subreddit("PublicFreakout").top(limit = 3):`
     
     Returns:
-    video_url | string array | array that contains the links to the relevant 
+    audio_url | string array | array that contains the links to the relevant 
     files if the link is streamable, it will be a list of size 1 linking to the 
     video because the video contains audio if the link is reddit, it will be a 
     list of size 2 with the first element linking to the video graphics and the 
@@ -110,7 +110,7 @@ def video_url_from_submission(submission):
     then retrieve url from json
     
     For reddit, get subreddit post, find the fall back video url
-    and the audio url by replacing stuff
+    and the audio url by replacing parts
     Example: 
     https://v.redd.it/9v2san14was51/DASH_720.mp4?source=fallback to
     https://v.redd.it/9v2san14was51/DASH_audio.mp4?source=fallback
@@ -161,8 +161,8 @@ def video_url_from_submission(submission):
     return url_array
 
 
-# Function for download videos from subreddit urls
-def download_video(url, audio=False):
+# Function for downloading video or audio files from subreddit urls
+def download_media(url):
     """
     Download a file from a url
     
@@ -170,9 +170,6 @@ def download_video(url, audio=False):
     url | string | the link that you want to download from
     audio | boolean | True will set the extension to .aac, False will set the 
     extension to .mp4
-    
-    audio | boolean | boolean value for whether or not you want to download the
-    video file or the audio file
 
     Returns:
     local_filename | string | name of the downloaded file
@@ -268,23 +265,21 @@ def test_functions(download_quantity=2):
     top1 = sr1.top(time_filter="day", limit=download_quantity)
     # Initialize arrays
     urls = []
-    ### buggy1 = []
     # Place the relevant info into the array from the selected top 3
     for i in top1:
-        ### # Debugging error where some attribute doesn't exist
         logging.info(len(urls))
-        ### if(len(urls) == 15):
-        ###     buggy1.append(i)
         try:
-            urls.append(video_url_from_submission(i))
+            urls.append(audio_url_from_submission(i))
         except:
-            print(urls.append(video_url_from_submission(i)))
+            logging.info(
+                f"Exception: {urls.append(audio_url_from_submission(i))}"
+            )
     print("urls appended, starting downloads")
     # Download the videos
     for i in range(len(urls)):
         for j in range(len(urls[i])):
             try:
-                download_video(urls[i][j], audio=True)
+                download_media(urls[i][j])
             except Exception as exception:
                 # Getting this HTTP error
                 # 403 Client Error: Forbidden for url:
