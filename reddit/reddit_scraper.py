@@ -214,7 +214,7 @@ def download_media(url):
 
     # Name of script
     script_name = "reddit_scraper.py"
-    path1 = Path("./", script_name)
+    path1 = Path(Path.cwd() / script_name)
 
     # Create a path for the data folder
     data_path = Path("../data").resolve()
