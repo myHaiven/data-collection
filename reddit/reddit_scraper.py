@@ -273,7 +273,7 @@ def test_functions(download_quantity=2):
     # Select the public freakout subreddit
     sr1 = reddit.subreddit("PublicFreakout")
     # Select the top 10 (it is selecting top 10 of the year by default)
-    top1 = sr1.top(time_filter="day", limit=download_quantity)
+    top1 = sr1.top(time_filter="year", limit=download_quantity)
     # Initialize arrays
     urls = []
     # Place the relevant info into the array from the selected top 3
@@ -306,4 +306,7 @@ def test_functions(download_quantity=2):
 
 # Take daily top 50 links from the public freakout subreddit and attempt to
 # download
-test_functions(download_quantity=50)
+
+# Only execute this if run as a script
+if __name__ == "__main__":
+    test_functions(download_quantity=1000)
