@@ -153,7 +153,6 @@ def audio_url_from_submission(submission):
         # Get the audio
         audio_url = convert_reddit(video_url)
         url_array.append(audio_url)
-        print(url_array)
 
     else:
         print(f"This script does not support {submission.domain}")
@@ -188,7 +187,7 @@ def download_media(url):
     if re.search(string=root_url, pattern="^v\.redd\.it"):
         source = "reddit"
         # If the url is an audio url
-        if re.search(string=url, pattern="/.*audio\?source=fallback"):
+        if re.search(string=url, pattern="/.*audio"):
             file_suffix = "_raw.aac"
         else:
             file_suffix = ".mp4"
@@ -241,8 +240,6 @@ def download_media(url):
     # Using with to automatically close the connection when we are done with it
     with requests.get(url, stream=True) as req:
         # Raise an http error if there is one
-        print(req)
-        print(req.ok)
         if not req.ok:
             logging.info(req)
             logging.info(
@@ -308,4 +305,4 @@ def test_functions(download_quantity=2):
 
 # Only execute this if run as a script
 if __name__ == "__main__":
-    test_functions(download_quantity=1000)
+    test_functions(download_quantity=2)
