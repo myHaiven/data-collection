@@ -18,7 +18,7 @@ folder_path = sys.argv[1]
 
 
 # Pydub uses milleseconds as the units; 10 000 is 10 seconds
-thirty_seconds = 30 * 1000
+ten_seconds = 10 * 1000
 
 # Loop through folders in date folder, excluding hidden files
 # Uncomment to loop
@@ -31,10 +31,10 @@ file_path = Path(next(Path(folder_path).glob("*_processed.wav")))
 # Import the file
 audio_file = AudioSegment.from_file(file_path)
 # Determine the number of segments to loop through
-number_of_segments = math.floor(audio_file.duration_seconds / 30)
-# For each segment of at most 30 seconds, export the segment
+number_of_segments = math.floor(audio_file.duration_seconds / 10)
+# For each segment of at most 10 seconds, export the segment
 for i in range(number_of_segments+1):
-    current_segment = audio_file[i * thirty_seconds : (i + 1) * thirty_seconds]
+    current_segment = audio_file[i * ten_seconds : (i + 1) * ten_seconds]
     current_segment.export(
         Path(file_path.parent, f"{file_path.stem}_{i}.wav"), format="wav"
     )
