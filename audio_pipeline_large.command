@@ -55,11 +55,11 @@ for folder in */
 do
   echo "Processing $folder"
 
-  cd $PROCESSINGPATH/segmentation/
-  python unprocessed_segmentation.py "$filepath/$folder"
+ # cd $PROCESSINGPATH/segmentation/
+ # python unprocessed_segmentation.py "$filepath/$folder"
 
-  cd $PROCESSINGPATH/silence-removal/
-  python split_silence-removal.py "$filepath/$folder"
+ # cd $PROCESSINGPATH/silence-removal/
+ # python split_silence-removal.py "$filepath/$folder"
 
   cd $PROCESSINGPATH/segmentation
   python resegment.py "$filepath/$folder"

@@ -12,7 +12,7 @@ import re
 import math
 
 folder_path = sys.argv[1]
-input_filename = folder_path.split('/')[-1]
+input_filename = folder_path.split('/')[-2]
 print(input_filename)
 
 files = [f for f in listdir(folder_path) if isfile(join(folder_path, f))]
